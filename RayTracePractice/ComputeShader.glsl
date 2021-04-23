@@ -4,6 +4,15 @@ layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 uniform samplerCube skybox;
 layout(rgba32f, binding = 0) uniform image2D img_output;
 
+#define MAXMESH 1000
+
+layout(std140, binding = 0) uniform MESH_IN
+{
+	vec3 verts[MAXMESH];
+} vertices;
+
+uniform float size;
+
 vec3 ray_o;
 vec3 ray_d;
 vec4 pixel;
@@ -167,8 +176,6 @@ float triangle(vec3 points[3]){
 	   float dist = length(ray_d*t);
 	   return dist;
 
-	}
-
 	return -1.0f;
 }
 
@@ -265,9 +272,6 @@ void main(){
 	float y = 0.2 + float(pixel_coords.y * 2 - dims.y) / dims.y;
 	ray_o = vec3(x*max_x, y*max_y, 0.0);
 	ray_d = vec3(0.0,0.0,-1.0);
-
-	vec3 sphere_c = vec3(0.0,0.0,-10.0);
-	float sphere_r = 1.0;
 
 	pixel = vec4(abs(x),abs(y),0.0,1.0);
 
