@@ -10,8 +10,8 @@
 
 using namespace std;
 
-int width = 1000;
-int height = 1000;
+int width = 900;
+int height = 900;
 
 const char* vertexS = "#version 430\n"
 "layout(location = 0) in vec3 Position;\n"
