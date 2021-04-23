@@ -175,11 +175,13 @@ float triangle(vec3 points[3]){
 	   
 	   float dist = length(ray_d*t);
 	   return dist;
+	}
 
 	return -1.0f;
 }
 
-IntersectData intersectSphere(vec3 ray_origin, vec3 ray_direction, vec3 centre, float radius, vec4 sphere_color){
+IntersectData intersectSphere(vec3 ray_origin, vec3 ray_direction, vec3 centre, float radius, vec4 sphere_color)
+{
 	vec3 omc = ray_origin - centre;
 	float a = dot(ray_direction, ray_direction);
 	float b = 2.0f * dot(ray_direction, omc);
