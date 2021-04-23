@@ -1,10 +1,12 @@
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
+#include "stb_image.h"
 
 #include<iostream>
 #include<fstream>
 #include<string>
 #include<sstream>
+#include <vector>
 
 using namespace std;
 
@@ -33,7 +35,7 @@ float vertices[] = {
 	1,-1,0,1,0,
 	-1,1,0,0,1,
 	1,-1,0,1,0,
-	-1,-1,0,1,1,
+	-1,-1,0,0,0,
 	-1,1,0,0,1
 };
 
@@ -44,6 +46,38 @@ string GetShaderSource(string filepath) {
 	t.close();
 	string s = buffer.str();
 	return s;
+}
+
+unsigned int loadCubemap(vector<std::string> faces)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, nrChannels;
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+				0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+			);
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Cubemap tex failed to load at path: " << faces[i] << std::endl;
+			stbi_image_free(data);
+		}
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	return textureID;
 }
 
 int main() {
@@ -173,11 +207,49 @@ int main() {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+	float mesh[] = 
+	{
+		/*1,1,0,0,
+		1,0,0,0,
+		0,1,0,0,*/
+		1,2,1,0,
+		1,0,0,0,
+		2,1,0,0,
+		1,0,0,0,
+		0,0,0,0,
+		0,2,0,0
+		
+	};
+
+	GLuint meshBlock;
+	glGenBuffers(1, &meshBlock);
+	glBindBuffer(GL_UNIFORM_BUFFER, meshBlock);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(mesh), NULL, GL_STATIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	glBindBufferBase(GL_UNIFORM_BUFFER, 0, meshBlock);
+
+	std::string prefix = "res/skyboxes/ocean/";
+	vector<std::string> faces
+	{
+			prefix + "right.jpg",
+			prefix + "left.jpg",
+			prefix + "top.jpg",
+			prefix + "bottom.jpg",
+			prefix + "front.jpg",
+			prefix + "back.jpg"
+	};
+	unsigned int cubemapTexture = loadCubemap(faces);
+
 	//Loop
 
 	while (!glfwWindowShouldClose(window)) {
 		glUseProgram(rayProgram);
 		glDispatchCompute((GLuint)tw, (GLuint)th, 1);
+
+		int sizeLoc = glGetUniformLocation(rayProgram, "size");
+		glUniform1f(sizeLoc, sizeof(mesh) / 4);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 
 		glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
