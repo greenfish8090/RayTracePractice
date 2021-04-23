@@ -256,7 +256,6 @@ vec4 rayTrace(int bounces, vec3 origin, vec3 direction)
 }
 
 void main(){
-	pixel = vec4(0.5,0.3,0.4,1);
 	ivec2 pixel_coords = ivec2(gl_GlobalInvocationID.xy);
 
 	float max_x = 5.0;
