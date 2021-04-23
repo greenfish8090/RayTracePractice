@@ -196,7 +196,6 @@ int main() {
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
 	
-
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
 	glBindVertexArray(VAO);
@@ -207,18 +206,15 @@ int main() {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
 	float mesh[] = 
 	{
-		/*1,1,0,0,
+		1,1,0,0,
 		1,0,0,0,
-		0,1,0,0,*/
-		1,2,1,0,
-		1,0,0,0,
-		2,1,0,0,
+		0,1,0,0,
 		1,0,0,0,
 		0,0,0,0,
-		0,2,0,0
-		
+		0,1,0,0,
 	};
 
 	GLuint meshBlock;
@@ -240,14 +236,14 @@ int main() {
 			prefix + "back.jpg"
 	};
 	unsigned int cubemapTexture = loadCubemap(faces);
-
+        
 	//Loop
-
 	while (!glfwWindowShouldClose(window)) {
 		glUseProgram(rayProgram);
 		glDispatchCompute((GLuint)tw, (GLuint)th, 1);
 
 		int sizeLoc = glGetUniformLocation(rayProgram, "size");
+                
 		glUniform1f(sizeLoc, sizeof(mesh) / 4);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 
@@ -259,6 +255,10 @@ int main() {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex_out);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
+
+		glBindBuffer(GL_UNIFORM_BUFFER, meshBlock);
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(mesh), mesh);
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 		glfwPollEvents();
 
