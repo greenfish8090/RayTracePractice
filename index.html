@@ -8,7 +8,7 @@
   <meta name="description" content="Process and Results">
   <meta name="author" content="PSK">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="Documentation/OurJourney/styles.css">
 
 </head>
 
@@ -32,7 +32,7 @@
         the 'data' of the point of the object it hit and using that prints out a specific color on the screen. This is done for every single pixel present on screen.
         The result is therefore extremely accurate but incredibly time-wasting.
         <div class="image">
-          <img src="images/theory1.png">
+          <img src="Documentation/OurJourney/theory1.png">
           <div class="label">
             Diagrammatic representation of raytracing
           </div>
@@ -40,7 +40,7 @@
         This is a simple enough strategy to start off with. The complexity comes in the data required for the color of each pixel. The first issue is to detect whether a ray is actually hitting an object. This problem is solved
         using standard matrix geometrical calculations based on the normal of a triangle, which most objects are made out of. Of course, customized algorithms for different types of solids can be made similarly.
         <div class="image">
-          <img src="images/theory2.jfif">
+          <img src="Documentation/OurJourney/theory2.jfif">
           <div class="label">
             Drawing a basic sphere with only hit detection; Background for display purposes
           </div>
@@ -52,7 +52,7 @@
         Now this looks pretty ugly without a background, so we added a skybox. It is a bounding box around a scene that appears to the viewer as the sky and background. Essentially, it is an arbitrarily large cube containing a warped texture or image to
         simulate atmosphere. We found this one off the internet:
         <div class="image">
-          <img src="images/skybox.png">
+          <img src="Documentation/OurJourney/skybox.png">
           <div class="label">
             Skybox
           </div>
@@ -61,7 +61,7 @@
         modified by each bounce by a certain value until a 'bounce limit' is reached. We can reach some impressive results with this alone. You can now see behind the camera as well.
         We gave the spheres a slight tint:
         <div class="image">
-          <img src="images/mirror1.png">
+          <img src="Documentation/OurJourney/mirror1.png">
           <div class="label">
             Reflection limit = 1
           </div>
@@ -69,25 +69,25 @@
         This image was generated only by reflecting each camera ray once and finding the object at that location.
         That's why you see the spheres inside the reflections in solid color. Increase that limit, and you can see reflections inside reflections, and so on:
         <div class="image">
-          <img src="images/mirror2.png">
+          <img src="Documentation/OurJourney/mirror2.png">
           <div class="label">
             Reflection limit = 2
           </div>
         </div>
         <div class="image">
-          <img src="images/mirror3.png">
+          <img src="Documentation/OurJourney/mirror3.png">
           <div class="label">
             Reflection limit = 3
           </div>
         </div>
         <div class="image">
-          <img src="images/mirror5pure.png">
+          <img src="Documentation/OurJourney/mirror5pure.png">
           <div class="label">
             Purely reflective spheres with limit = 5
           </div>
         </div>
         <div class="image">
-          <img src="images/mirror5strong.png">
+          <img src="Documentation/OurJourney/mirror5strong.png">
           <div class="label">
             Strongly tinted spheres with limit = 5
           </div>
@@ -104,14 +104,14 @@
         too much even for a compute shader to process, so a workaround is to process light in the opposite direction, i.e from the camera eye to the light source. By checking the angle between a light ray and the ray we
         use to trace objects we can achieve some sort of primitive lighting.
         <div class="image">
-          <img src="images/primitivelight.jfif">
+          <img src="Documentation/OurJourney/primitivelight.jfif">
           <div class="label">
             Primitive lighting model
           </div>
         </div>
         Now we are prepared to start applying James T Kajiya's rendering equation to get better results for not just mirrors but all kinds of surfaces:
         <div class="image">
-          <img src="images/equation1.png">
+          <img src="Documentation/OurJourney/equation1.png">
           <div class="label">
             Rendering Equation
           </div>
@@ -123,7 +123,7 @@
         direction and spits out a value that correlates the two. For example, for a perfect mirror, the BRDF will produce 0 for every (incoming, outgoing) pair except the ones
         that have their angle of reflection equal to angle of incidence. Other surfaces will have a more complicated correlation.
         <div class="image">
-          <img src="images/brdf.png">
+          <img src="Documentation/OurJourney/brdf.png">
           <div class="label">
             Crude visualization of what the BRDF does
           </div>
@@ -133,7 +133,7 @@
         <br><br>
         The term that comes right after it is the Lambert term which represents the Lambert cosine law. 
         <div class="image">
-          <img src="images/lambert.webp">
+          <img src="Documentation/OurJourney/lambert.webp">
           <div class="label">
             Lambert term explanation
           </div>
@@ -144,7 +144,7 @@
         some compromises. One, we have to pick only a few rays to shoot out, not an infinite number of them. Second, we need a max reflections limit to prevent a ray from reflecting
         infinitely. Here is a very naive approach to realizing this solution:
         <div class="big">
-          <img src="images/naiveraytracer.png">
+          <img src="Documentation/OurJourney/naiveraytracer.png">
           <div class="label">
           </div>
         </div>
@@ -157,14 +157,14 @@
         <br><br>
         We can apply Monte Carlo Integration to the integral
         <div class="image">
-          <img src="images/monte.png">
+          <img src="Documentation/OurJourney/monte.png">
           <div class="label">
           </div>
         </div>
         The integral of a function can now be calculated by averaging random samples in the specified way, where p(xn) denotes the probability of the sample being chosen. Since we
         are sampling over a hemisphere, this value will be 1/2π. Our rendering equation is now:
         <div class="image">
-          <img src="images/equation2.png">
+          <img src="Documentation/OurJourney/equation2.png">
           <div class="label">
           </div>
         </div>
@@ -176,14 +176,14 @@
         <br>
         Next, we have to define a BRDF.
         <div class="image">
-          <img src="images/newBrdf.png">
+          <img src="Documentation/OurJourney/newBrdf.png">
           <div class="label">
           </div>
         </div>
         The first term represents diffuse reflection and the second, specular reflection. kd is the albedo of the surface and ks is the specular. (They control the strengths of
         these types of reflections). In the case of specular reflection, we also have wr and alpha. wr is just the perfectly reflected ray, and alpha works like this:
         <div class="image">
-          <img src="images/alpha.gif">
+          <img src="Documentation/OurJourney/alpha.gif">
           <div class="label">
           </div>
         </div>
@@ -197,48 +197,48 @@
     <div class = "content">
       Now that we have our code, it's time to see what it can do.
       <div class="image">
-        <img src="images/example1frame1.png">
+        <img src="Documentation/OurJourney/example1frame1.png">
         <div class="label">
           First frame
         </div>
       </div>
       Well, the first frame looks horrible, as expected. If we let it run for a while and let the Monte Carlo summation do its magic, we get:
       <div class="image">
-        <img src="images/example1framen.png">
+        <img src="Documentation/OurJourney/example1framen.png">
         <div class="label">
           Frame after around 50 cycles
         </div>
       </div>
       Sick. Let's break down the scene:
       <div class="image">
-        <img src="images/example1explanation.png">
+        <img src="Documentation/OurJourney/example1explanation.png">
         <div class="label">
         </div>
       </div>
       If we make the ground a perfect mirror, (set alpha very high):
       <div class="image">
-        <img src="images/example2.png">
+        <img src="Documentation/OurJourney/example2.png">
         <div class="label">
           Very reflective ground
         </div>
       </div>
       If we make the ground non reflective:
       <div class="image">
-        <img src="images/example3.png">
+        <img src="Documentation/OurJourney/example3.png">
         <div class="label">
           Diffuse ground
         </div>
       </div>
       Right now, the skybox is acting as a light source with a non-zero emission value. If we make that 0, we get to see the smaller light sources in action:
       <div class="image">
-        <img src="images/example4.png">
+        <img src="Documentation/OurJourney/example4.png">
         <div class="label">
           Dark skybox
         </div>
       </div>
       We can even make the ground emissive:
       <div class="image">
-        <img src="images/example5.png">
+        <img src="Documentation/OurJourney/example5.png">
         <div class="label">
           Weakly emissive ground emitting an RGB of (0.2, 0.1, 0.1)
         </div>
