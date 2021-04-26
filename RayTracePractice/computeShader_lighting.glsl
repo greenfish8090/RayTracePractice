@@ -2,6 +2,7 @@
 layout(local_size_x = 1, local_size_y = 1) in;
 layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 uniform samplerCube skybox; ///< the skybox
+uniform mat4 rotate_matrix; ///< Rotation matrix for camera
 uniform float seed; ///< Randomness seed so that we don't calculate the same random values every frame
 layout(rgba32f, binding = 0) uniform image2D img_output; ///< The output as a 2D texture
 
@@ -606,7 +607,8 @@ void main(){
 	pixel = vec4(pixel_coords.x, pixel_coords.y, 0.0, 1.0);
 	Ray ray;
 	ray.origin = vec3(0.0, 0.0, 10.0);
-	ray.direction = normalize(vec3(x*max_x,y*max_y,0.0) - ray.origin);
+	vec4 initial = vec4(normalize(vec3(x*max_x,y*max_y,0.0) - ray.origin).xyzz);
+	ray.direction = vec3((rotate_matrix * initial).xyz);
 	ray.energy = vec3(1.0f);
 
 	vec3 result = vec3(0.0, 0.0, 0.0);
@@ -621,3 +623,4 @@ void main(){
 	
 	imageStore(img_output,pixel_coords,pixel);
 }
+
