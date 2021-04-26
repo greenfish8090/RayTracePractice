@@ -31,6 +31,7 @@ struct RayHit{
     vec3 specular;
     float smoothness;
     vec3 emission;
+	bool skybox;
 };
 
 RayHit CreateRayHit(){
@@ -42,6 +43,7 @@ RayHit CreateRayHit(){
     hit.specular = vec3(0.0f,0.0f,0.0f);
     hit.smoothness = 0.0f;
     hit.emission = vec3(0,0,0);
+	hit.skybox = false;
     return hit;
 }
 
@@ -51,6 +53,8 @@ struct Sphere
     float radius;
     vec3 albedo;
     vec3 specular;
+	float smoothness;
+	vec3 emission;
 };
 
 float internal_seed = seed;
@@ -92,6 +96,152 @@ vec3 SampleHemisphere(vec3 normal, float alpha){
     vec3 tangentSpaceDir = vec3(cos(phi)*sinTheta,sin(phi)*sinTheta,cosTheta);
  
     return GetTangentSpace(normal)*tangentSpaceDir;
+}
+
+void intersectRoom(Ray ray, inout RayHit bestHit)
+{
+	float halflength = 10000;
+	bool testBack=true, testLeft=true, testBottom=true;
+	vec3 nearest;
+	float nearest_dist = 10000000.0;
+	vec3 normal;
+
+	//front face
+	vec3 p_point = vec3(0.0, 0.0, -halflength);
+	vec3 p_normal = vec3(0.0, 0.0, 1.0);
+	float denom = dot(p_normal, ray.direction);
+	if (abs(denom) > 0.0001f) // your favorite epsilon
+	{
+		float t = dot(p_point - ray.origin, p_normal) / denom;
+		if (t > 0.0001f) 
+		{
+			testBottom = false;
+			nearest = ray.origin+t*ray.direction;
+			nearest_dist = t;
+			normal = p_normal;
+		}
+	}
+	else testBottom = false;
+
+	//right face
+	p_point = vec3(halflength, 0.0, 0.0);
+	p_normal = vec3(-1.0, 0.0, 0.0);
+	denom = dot(p_normal, ray.direction);
+	if (abs(denom) > 0.0001f) // your favorite epsilon
+	{
+		float t = dot(p_point - ray.origin, p_normal) / denom;
+		if (t > 0.0001f) 
+		{
+			testLeft = false;
+			float dist = t;
+			if(dist < nearest_dist)
+			{
+				nearest = ray.origin+t*ray.direction;
+				nearest_dist = dist;
+				normal = p_normal;
+			}
+		}
+	}
+	else testLeft = false;
+
+	//top face
+	p_point = vec3(0.0, halflength, 0.0);
+	p_normal = vec3(0.0, -1.0, 0.0);
+	denom = dot(p_normal, ray.direction);
+	if (abs(denom) > 0.0001f) // your favorite epsilon
+	{
+		float t = dot(p_point - ray.origin, p_normal) / denom;
+		if (t > 0.0001f) 
+		{
+			testBottom = false;
+			float dist = t;
+			if(dist < nearest_dist)
+			{
+				nearest = ray.origin+t*ray.direction;
+				nearest_dist = dist;
+				normal = p_normal;
+			}
+		}
+	}
+	else testBottom = false;
+
+	//back face
+	if(testBack)
+	{
+		vec3 p_point = vec3(0.0, 0.0, halflength);
+		vec3 p_normal = vec3(0.0, 0.0, -1.0);
+		float denom = dot(p_normal, ray.direction);
+		if (abs(denom) > 0.0001f) // your favorite epsilon
+		{
+			float t = dot(p_point - ray.origin, p_normal) / denom;
+			if (t > 0.0001f) 
+			{
+				float dist = t;
+				if(dist < nearest_dist)
+				{
+					nearest = ray.origin+t*ray.direction;
+					nearest_dist = dist;
+					normal = p_normal;
+				}
+			}
+		}
+	}
+
+	//left face
+	if(testLeft)
+	{
+		vec3 p_point = vec3(-halflength, 0.0, 0.0);
+		vec3 p_normal = vec3(1.0, 0.0, 0.0);
+		float denom = dot(p_normal, ray.direction);
+		if (abs(denom) > 0.0001f) // your favorite epsilon
+		{
+			float t = dot(p_point - ray.origin, p_normal) / denom;
+			if (t > 0.0001f) 
+			{
+				float dist = t;
+				if(dist < nearest_dist)
+				{
+					nearest = ray.origin+t*ray.direction;
+					nearest_dist = dist;
+					normal = p_normal;
+				}
+			}
+		}
+	}
+
+	//bottom face
+	if(testBottom)
+	{
+		vec3 p_point = vec3(0.0, -halflength, 0.0);
+		vec3 p_normal = vec3(0.0, 1.0, 0.0);
+		float denom = dot(p_normal, ray.direction);
+		if (abs(denom) > 0.0001f) // your favorite epsilon
+		{
+			float t = dot(p_point - ray.origin, p_normal) / denom;
+			if (t > 0.0001f) 
+			{
+				float dist = t;
+				if(dist < nearest_dist)
+				{
+					nearest = ray.origin+t*ray.direction;
+					nearest_dist = dist;
+					normal = p_normal;
+				}
+			}
+		}
+	}
+	if(nearest_dist < bestHit.dist || bestHit.dist == -1)
+	{
+		bestHit.dist = nearest_dist;
+		bestHit.position = ray.origin + nearest_dist * ray.direction;
+		bestHit.normal = normal;
+		bestHit.albedo = vec3(texture(skybox, normalize(nearest)).xyz);
+		bestHit.specular = vec3(0.0);
+		bestHit.emission = vec3(0.2, 0.2, 0.2);
+		bestHit.smoothness = 0.0;
+		bestHit.skybox = true;
+	}
+//	return vec3(1.0, 0.0, 0.0);
 }
 
 vec3 drawBackground(vec3 r_origin, vec3 r_direction)
@@ -233,8 +383,9 @@ void intersectGroundPlane(Ray ray, inout RayHit bestHit)
 		bestHit.normal = vec3(0.0, 1.0, 0.0);
 		bestHit.albedo = vec3(1.0);
 		bestHit.specular = vec3(1.0);
-		bestHit.emission = vec3(0.0);
-		bestHit.smoothness = 1.2;
+		bestHit.emission = vec3(0.0, 0.0, 0.0);
+		bestHit.smoothness = 1.1;
+		bestHit.skybox = false;
 	}
 }
 
@@ -254,8 +405,9 @@ void intersectSphere(Ray ray, inout RayHit bestHit, Sphere sphere)
         bestHit.normal = normalize(bestHit.position - sphere.position);
         bestHit.albedo = sphere.albedo;
         bestHit.specular = sphere.specular;
-		bestHit.emission = vec3(0.0);
-		bestHit.smoothness = 0.8;
+		bestHit.emission = sphere.emission;
+		bestHit.smoothness = sphere.smoothness;
+		bestHit.skybox = false;
     }
 }
 
@@ -263,15 +415,17 @@ RayHit Trace(Ray ray)
 {
 	RayHit bestHit = CreateRayHit();
 
+	intersectRoom(ray, bestHit);
 	intersectGroundPlane(ray, bestHit);
 
-	intersectSphere(ray, bestHit, Sphere(vec3(8.0f, -11.0, -40.0f), 5.0, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 0.0)));
-	intersectSphere(ray, bestHit, Sphere(vec3(-5.0f, -11.0, -40.0f), 5.0, vec3(1.0, 1.0, 0.0), vec3(0.4)));
+	intersectSphere(ray, bestHit, Sphere(vec3(8.0f, -11.0, -50.0f), 5.0, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 0.0), 0.8, vec3(1.0)));
+	intersectSphere(ray, bestHit, Sphere(vec3(-5.0f, -13.0, -50.0f), 3.0, vec3(1.0, 1.0, 1.0), vec3(0.0), 0.8, vec3(10.0)));
+	intersectSphere(ray, bestHit, Sphere(vec3(1.0f, -15.0, -62.0f), 2.0, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0), 0.0, vec3(0.0)));
 //	for(int i=-2; i<3; i++)
 //	{
 //		for(int j=0; j<5; j++)
 //		{
-//			intersectSphere(ray, bestHit, Sphere(vec3(i*13.0f, -11.0, -j*20.0f-40.0f), 5.0, vec3(1.0), vec3(0.6)));
+//			intersectSphere(ray, bestHit, Sphere(vec3(i*13.0f, -11.0, -j*20.0f-60.0f), 5.0, vec3(1.0), vec3(0.0)));
 //		}
 //	}
  
@@ -282,7 +436,12 @@ vec3 Shade(inout Ray ray, RayHit hit)
 {
 	if(hit.dist > 0.01f)
 	{
- 
+		if(hit.skybox)
+		{
+			ray.energy *= hit.albedo;
+			return hit.emission;
+		}
+
 		hit.albedo = min(1.0f - hit.specular, hit.albedo);
 		float specChance = energy(hit.specular);
 		float diffChance = energy(hit.albedo);
@@ -307,7 +466,6 @@ vec3 Shade(inout Ray ray, RayHit hit)
 			ray.direction = SampleHemisphere(hit.normal, 1.0f);
 			ray.energy *= (1.0f / diffChance) * hit.albedo;
 		}
-//			
 		return hit.emission;
 
 //		vec3 specular = vec3(1.0f, 0.78f, 0.34f);
@@ -338,8 +496,8 @@ vec3 Shade(inout Ray ray, RayHit hit)
 	}
 	else
 	{
-		ray.energy = vec3(0.2f);
-		return drawBackground(ray.origin, ray.direction);
+		ray.energy = vec3(0.0f);
+		return vec3(0.0, 0.0, 0.0);
 	}
 }
 
