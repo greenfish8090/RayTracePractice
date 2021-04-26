@@ -1,0 +1,181 @@
+\hypertarget{_application_8cpp}{}\doxysection{C\+:/\+Cpp/\+Ray\+Trace\+Practice/\+Ray\+Trace\+Practice/\+Application.cpp File Reference}
+\label{_application_8cpp}\index{C:/Cpp/RayTracePractice/RayTracePractice/Application.cpp@{C:/Cpp/RayTracePractice/RayTracePractice/Application.cpp}}
+{\ttfamily \#include $<$glad/glad.\+h$>$}\newline
+{\ttfamily \#include $<$GLFW/glfw3.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}stb\+\_\+image.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}external/glm/glm.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}external/glm/gtc/matrix\+\_\+transform.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}external/glm/gtc/type\+\_\+ptr.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}external/glm/gtx/string\+\_\+cast.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_application_8cpp_a86ce2f5d11d5db52cf734f7848de4ead}{Key\+Callback}} (GLFWwindow $\ast$window, int key, int scancode, int action, int mods)
+\item 
+string \mbox{\hyperlink{_application_8cpp_a9225bfd11db175fb79e27c2909f268da}{Get\+Shader\+Source}} (string filepath)
+\begin{DoxyCompactList}\small\item\em Load a shader \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{_application_8cpp_a6fbd7ab07d1d1d600c4bf3741629e7ff}{load\+Cubemap}} (vector$<$ std\+::string $>$ faces)
+\begin{DoxyCompactList}\small\item\em Loading a cubemap from system into Open\+GL textures \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_application_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em The main function where all important functions are executed \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_application_8cpp_a2474a5474cbff19523a51eb1de01cda4}{width}} = 900
+\item 
+int \mbox{\hyperlink{_application_8cpp_ad12fc34ce789bce6c8a05d8a17138534}{height}} = 900
+\item 
+int \mbox{\hyperlink{_application_8cpp_ae96941d536f30c89de988c3ee2505ead}{scene}} = 1
+\item 
+float \mbox{\hyperlink{_application_8cpp_a931b02a240d16484af305a80c3ce537e}{iter}}
+\item 
+\mbox{\hyperlink{group__core__matrix_gac54cbc572f1349a255fe476ca6a42a7b}{glm\+::mat4}} \mbox{\hyperlink{_application_8cpp_a49242c38a9e2c35f6da8d75c02fa63ea}{rot\+\_\+matrix}} = \mbox{\hyperlink{group__core__matrix_gac54cbc572f1349a255fe476ca6a42a7b}{glm\+::mat4}}(1.\+0f)
+\item 
+const char $\ast$ \mbox{\hyperlink{_application_8cpp_ab037ed45b1343003e9c662ac1e07e555}{vertexS}}
+\item 
+const char $\ast$ \mbox{\hyperlink{_application_8cpp_a545cc8c7ceecd5b142ff0e9fbbb62889}{fragmentS}}
+\item 
+float \mbox{\hyperlink{_application_8cpp_a25986ed96a435775e363f05540a2f9c4}{vertices}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_application_8cpp_a9225bfd11db175fb79e27c2909f268da}\label{_application_8cpp_a9225bfd11db175fb79e27c2909f268da}} 
+\index{Application.cpp@{Application.cpp}!GetShaderSource@{GetShaderSource}}
+\index{GetShaderSource@{GetShaderSource}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{GetShaderSource()}{GetShaderSource()}}
+{\footnotesize\ttfamily string Get\+Shader\+Source (\begin{DoxyParamCaption}\item[{string}]{filepath }\end{DoxyParamCaption})}
+
+
+
+Load a shader 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filpath} & The filepath of the shader\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_application_8cpp_a86ce2f5d11d5db52cf734f7848de4ead}\label{_application_8cpp_a86ce2f5d11d5db52cf734f7848de4ead}} 
+\index{Application.cpp@{Application.cpp}!KeyCallback@{KeyCallback}}
+\index{KeyCallback@{KeyCallback}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{KeyCallback()}{KeyCallback()}}
+{\footnotesize\ttfamily void Key\+Callback (\begin{DoxyParamCaption}\item[{GLFWwindow $\ast$}]{window,  }\item[{int}]{key,  }\item[{int}]{scancode,  }\item[{int}]{action,  }\item[{int}]{mods }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_application_8cpp_a6fbd7ab07d1d1d600c4bf3741629e7ff}\label{_application_8cpp_a6fbd7ab07d1d1d600c4bf3741629e7ff}} 
+\index{Application.cpp@{Application.cpp}!loadCubemap@{loadCubemap}}
+\index{loadCubemap@{loadCubemap}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{loadCubemap()}{loadCubemap()}}
+{\footnotesize\ttfamily unsigned int load\+Cubemap (\begin{DoxyParamCaption}\item[{vector$<$ std\+::string $>$}]{faces }\end{DoxyParamCaption})}
+
+
+
+Loading a cubemap from system into Open\+GL textures 
+
+
+\begin{DoxyParams}{Parameters}
+{\em faces} & a vector containing 6 filepaths\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_application_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{_application_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{Application.cpp@{Application.cpp}!main@{main}}
+\index{main@{main}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The main function where all important functions are executed 
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_application_8cpp_a545cc8c7ceecd5b142ff0e9fbbb62889}\label{_application_8cpp_a545cc8c7ceecd5b142ff0e9fbbb62889}} 
+\index{Application.cpp@{Application.cpp}!fragmentS@{fragmentS}}
+\index{fragmentS@{fragmentS}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{fragmentS}{fragmentS}}
+{\footnotesize\ttfamily const char$\ast$ fragmentS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \textcolor{stringliteral}{"{}\#version 430\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}out vec4 FragColor;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}in vec2 TexCoord;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}uniform sampler2D ourTexture;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}uniform float iter;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}void main() \{\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}FragColor = vec4(texture(ourTexture,TexCoord).rgb, 1.0f / (iter + 1.0f));\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}\};"{}}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{_application_8cpp_ad12fc34ce789bce6c8a05d8a17138534}\label{_application_8cpp_ad12fc34ce789bce6c8a05d8a17138534}} 
+\index{Application.cpp@{Application.cpp}!height@{height}}
+\index{height@{height}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{height}{height}}
+{\footnotesize\ttfamily int height = 900}
+
+\mbox{\Hypertarget{_application_8cpp_a931b02a240d16484af305a80c3ce537e}\label{_application_8cpp_a931b02a240d16484af305a80c3ce537e}} 
+\index{Application.cpp@{Application.cpp}!iter@{iter}}
+\index{iter@{iter}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{iter}{iter}}
+{\footnotesize\ttfamily float iter}
+
+\mbox{\Hypertarget{_application_8cpp_a49242c38a9e2c35f6da8d75c02fa63ea}\label{_application_8cpp_a49242c38a9e2c35f6da8d75c02fa63ea}} 
+\index{Application.cpp@{Application.cpp}!rot\_matrix@{rot\_matrix}}
+\index{rot\_matrix@{rot\_matrix}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{rot\_matrix}{rot\_matrix}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__core__matrix_gac54cbc572f1349a255fe476ca6a42a7b}{glm\+::mat4}} rot\+\_\+matrix = \mbox{\hyperlink{group__core__matrix_gac54cbc572f1349a255fe476ca6a42a7b}{glm\+::mat4}}(1.\+0f)}
+
+\mbox{\Hypertarget{_application_8cpp_ae96941d536f30c89de988c3ee2505ead}\label{_application_8cpp_ae96941d536f30c89de988c3ee2505ead}} 
+\index{Application.cpp@{Application.cpp}!scene@{scene}}
+\index{scene@{scene}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{scene}{scene}}
+{\footnotesize\ttfamily int scene = 1}
+
+\mbox{\Hypertarget{_application_8cpp_ab037ed45b1343003e9c662ac1e07e555}\label{_application_8cpp_ab037ed45b1343003e9c662ac1e07e555}} 
+\index{Application.cpp@{Application.cpp}!vertexS@{vertexS}}
+\index{vertexS@{vertexS}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{vertexS}{vertexS}}
+{\footnotesize\ttfamily const char$\ast$ vertexS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \textcolor{stringliteral}{"{}\#version 430\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}layout(location = 0) in vec3 Position;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}layout(location = 1) in vec2 aTexCoord;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}out vec2 TexCoord;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}void main() \{\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}gl\_Position = vec4(Position, 1.0);\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}TexCoord = aTexCoord;\(\backslash\)n"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}\};"{}}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{_application_8cpp_a25986ed96a435775e363f05540a2f9c4}\label{_application_8cpp_a25986ed96a435775e363f05540a2f9c4}} 
+\index{Application.cpp@{Application.cpp}!vertices@{vertices}}
+\index{vertices@{vertices}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{vertices}{vertices}}
+{\footnotesize\ttfamily float vertices\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    1,1,0,1,1,}
+\DoxyCodeLine{    1,-\/1,0,1,0,}
+\DoxyCodeLine{    -\/1,1,0,0,1,}
+\DoxyCodeLine{    1,-\/1,0,1,0,}
+\DoxyCodeLine{    -\/1,-\/1,0,0,0,}
+\DoxyCodeLine{    -\/1,1,0,0,1}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{_application_8cpp_a2474a5474cbff19523a51eb1de01cda4}\label{_application_8cpp_a2474a5474cbff19523a51eb1de01cda4}} 
+\index{Application.cpp@{Application.cpp}!width@{width}}
+\index{width@{width}!Application.cpp@{Application.cpp}}
+\doxysubsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily int width = 900}
+

@@ -1,0 +1,65 @@
+\hypertarget{scalar__multiplication_8hpp}{}\doxysection{C\+:/\+Cpp/\+Ray\+Trace\+Practice/\+Ray\+Trace\+Practice/external/glm/gtx/scalar\+\_\+multiplication.hpp File Reference}
+\label{scalar__multiplication_8hpp}\index{C:/Cpp/RayTracePractice/RayTracePractice/external/glm/gtx/scalar\_multiplication.hpp@{C:/Cpp/RayTracePractice/RayTracePractice/external/glm/gtx/scalar\_multiplication.hpp}}
+{\ttfamily \#include \char`\"{}../detail/setup.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../vec2.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../vec3.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../vec4.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../mat2x2.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceglm}{glm}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{group__core}{Core features}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{scalar__multiplication_8hpp_aa1e74ac9f6e034680f02523fb962bd0c}{GLM\+\_\+\+IMPLEMENT\+\_\+\+SCAL\+\_\+\+MULT}}(Vec)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename Vec $>$ }\\using \mbox{\hyperlink{namespaceglm_a68a5dc6ff1dbac4fda02c3b177afa4aa}{glm\+::return\+\_\+type\+\_\+scalar\+\_\+multiplication}} = typename std\+::enable\+\_\+if$<$ !std\+::is\+\_\+same$<$ T, float $>$\+::value \&\&std\+::is\+\_\+arithmetic$<$ T $>$\+::value, Vec $>$\+::type
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+gtx
+
+\begin{DoxyAuthor}{Author}
+Joshua Moerman
+\end{DoxyAuthor}
+Include $<$\mbox{\hyperlink{scalar__multiplication_8hpp}{glm/gtx/scalar\+\_\+multiplication.\+hpp}}$>$ to use the features of this extension.
+
+Enables scalar multiplication for all types
+
+Since GLSL is very strict about types, the following (often used) combinations do not work\+: double $\ast$ vec4 int $\ast$ vec4 vec4 / int So we\textquotesingle{}ll fix that! Of course \char`\"{}float $\ast$ vec4\char`\"{} should remain the same (hence the enable\+\_\+if magic) 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{scalar__multiplication_8hpp_aa1e74ac9f6e034680f02523fb962bd0c}\label{scalar__multiplication_8hpp_aa1e74ac9f6e034680f02523fb962bd0c}} 
+\index{scalar\_multiplication.hpp@{scalar\_multiplication.hpp}!GLM\_IMPLEMENT\_SCAL\_MULT@{GLM\_IMPLEMENT\_SCAL\_MULT}}
+\index{GLM\_IMPLEMENT\_SCAL\_MULT@{GLM\_IMPLEMENT\_SCAL\_MULT}!scalar\_multiplication.hpp@{scalar\_multiplication.hpp}}
+\doxysubsubsection{\texorpdfstring{GLM\_IMPLEMENT\_SCAL\_MULT}{GLM\_IMPLEMENT\_SCAL\_MULT}}
+{\footnotesize\ttfamily \#define GLM\+\_\+\+IMPLEMENT\+\_\+\+SCAL\+\_\+\+MULT(\begin{DoxyParamCaption}\item[{}]{Vec }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{namespaceglm_aafc7cc63c9c88cdb32f4f9c1c03ad715}{template<typename T> \(\backslash\)}}}
+\DoxyCodeLine{\mbox{\hyperlink{namespaceglm_aafc7cc63c9c88cdb32f4f9c1c03ad715}{    return\_type\_scalar\_multiplication<T, Vec> \(\backslash\)}}}
+\DoxyCodeLine{\mbox{\hyperlink{namespaceglm_aafc7cc63c9c88cdb32f4f9c1c03ad715}{    operator*}}(T \textcolor{keyword}{const}\& s, Vec rh)\{ \(\backslash\)}
+\DoxyCodeLine{        return rh *= \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(s); \(\backslash\)}
+\DoxyCodeLine{    \} \(\backslash\)}
+\DoxyCodeLine{     \(\backslash\)}
+\DoxyCodeLine{    template<typename T> \(\backslash\)}
+\DoxyCodeLine{    return\_type\_scalar\_multiplication<T, Vec> \(\backslash\)}
+\DoxyCodeLine{    operator*(Vec lh, T \textcolor{keyword}{const}\& s)\{ \(\backslash\)}
+\DoxyCodeLine{        return lh *= \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(s); \(\backslash\)}
+\DoxyCodeLine{    \} \(\backslash\)}
+\DoxyCodeLine{     \(\backslash\)}
+\DoxyCodeLine{    template<typename T> \(\backslash\)}
+\DoxyCodeLine{    return\_type\_scalar\_multiplication<T, Vec> \(\backslash\)}
+\DoxyCodeLine{    operator/(Vec lh, T \textcolor{keyword}{const}\& s)\{ \(\backslash\)}
+\DoxyCodeLine{        return lh *= 1.0f / \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(s); \(\backslash\)}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}

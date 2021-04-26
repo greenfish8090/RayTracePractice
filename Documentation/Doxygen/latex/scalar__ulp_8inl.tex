@@ -1,0 +1,119 @@
+\hypertarget{scalar__ulp_8inl}{}\doxysection{C\+:/\+Cpp/\+Ray\+Trace\+Practice/\+Ray\+Trace\+Practice/external/glm/ext/scalar\+\_\+ulp.inl File Reference}
+\label{scalar__ulp_8inl}\index{C:/Cpp/RayTracePractice/RayTracePractice/external/glm/ext/scalar\_ulp.inl@{C:/Cpp/RayTracePractice/RayTracePractice/external/glm/ext/scalar\_ulp.inl}}
+{\ttfamily \#include \char`\"{}../detail/type\+\_\+float.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../ext/scalar\+\_\+constants.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$cfloat$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+union \mbox{\hyperlink{unionieee__float__shape__type}{ieee\+\_\+float\+\_\+shape\+\_\+type}}
+\item 
+union \mbox{\hyperlink{unionieee__double__shape__type}{ieee\+\_\+double\+\_\+shape\+\_\+type}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceglm}{glm}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{group__core}{Core features}} \end{DoxyCompactList}\item 
+ \mbox{\hyperlink{namespaceglm_1_1detail}{glm\+::detail}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{scalar__ulp_8inl_a037d712bb7eec79dcd0073eb07d3f3e8}{GLM\+\_\+\+EXTRACT\+\_\+\+WORDS}}(ix0,  ix1,  d)
+\item 
+\#define \mbox{\hyperlink{scalar__ulp_8inl_a28d9056369280955e923f99180ccb23c}{GLM\+\_\+\+GET\+\_\+\+FLOAT\+\_\+\+WORD}}(i,  d)
+\item 
+\#define \mbox{\hyperlink{scalar__ulp_8inl_ab01ab8df0632f4a5f05e00f570e6b873}{GLM\+\_\+\+SET\+\_\+\+FLOAT\+\_\+\+WORD}}(d,  i)
+\item 
+\#define \mbox{\hyperlink{scalar__ulp_8inl_ac4ec14cb5c94f0ca1d594457ee17636f}{GLM\+\_\+\+INSERT\+\_\+\+WORDS}}(d,  ix0,  ix1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} float \mbox{\hyperlink{namespaceglm_1_1detail_ab0eb795c482130b1d6c83470bdb031e6}{glm\+::detail\+::nextafterf}} (float x, float y)
+\item 
+\mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} double \mbox{\hyperlink{namespaceglm_1_1detail_a3c14f8400407e8b4cff5be12ceef2c1e}{glm\+::detail\+::nextafter}} (double x, double y)
+\item 
+template$<$$>$ \mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} float \mbox{\hyperlink{namespaceglm_a82d4592ddac2d02d3674f17fd36b5949}{glm\+::next\+Float}} (float x)
+\item 
+template$<$$>$ \mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} double \mbox{\hyperlink{namespaceglm_a63cf8845314005e831be81d2a3fcbd00}{glm\+::next\+Float}} (double x)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} T \mbox{\hyperlink{namespaceglm_a4f1788325111613ce043f9430a956722}{glm\+::next\+Float}} (T x, int ULPs)
+\item 
+\mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} float \mbox{\hyperlink{namespaceglm_aca301439e4035fb0c6745cfc72c13ae0}{glm\+::prev\+Float}} (float x)
+\item 
+\mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} double \mbox{\hyperlink{namespaceglm_acfe33b1735c2db7e047b4317db052f5e}{glm\+::prev\+Float}} (double x)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{setup_8hpp_a33fdea6f91c5f834105f7415e2a64407}{GLM\+\_\+\+FUNC\+\_\+\+QUALIFIER}} T \mbox{\hyperlink{namespaceglm_a63d56e3d25467f3350baa7eaef7d26c1}{glm\+::prev\+Float}} (T x, int ULPs)
+\item 
+\mbox{\hyperlink{setup_8hpp_ab2d052de21a70539923e9bcbf6e83a51}{GLM\+\_\+\+FUNC\+\_\+\+DECL}} int \mbox{\hyperlink{namespaceglm_a9f531d81a978cdffac7c8257d513f59b}{glm\+::float\+Distance}} (float x, float y)
+\item 
+\mbox{\hyperlink{setup_8hpp_ab2d052de21a70539923e9bcbf6e83a51}{GLM\+\_\+\+FUNC\+\_\+\+DECL}} int64 \mbox{\hyperlink{namespaceglm_a3b047a20863ee875bf981a00b2cb8050}{glm\+::float\+Distance}} (double x, double y)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{scalar__ulp_8inl_a037d712bb7eec79dcd0073eb07d3f3e8}\label{scalar__ulp_8inl_a037d712bb7eec79dcd0073eb07d3f3e8}} 
+\index{scalar\_ulp.inl@{scalar\_ulp.inl}!GLM\_EXTRACT\_WORDS@{GLM\_EXTRACT\_WORDS}}
+\index{GLM\_EXTRACT\_WORDS@{GLM\_EXTRACT\_WORDS}!scalar\_ulp.inl@{scalar\_ulp.inl}}
+\doxysubsubsection{\texorpdfstring{GLM\_EXTRACT\_WORDS}{GLM\_EXTRACT\_WORDS}}
+{\footnotesize\ttfamily \#define GLM\+\_\+\+EXTRACT\+\_\+\+WORDS(\begin{DoxyParamCaption}\item[{}]{ix0,  }\item[{}]{ix1,  }\item[{}]{d }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{                                    \(\backslash\)}
+\DoxyCodeLine{        ieee\_double\_shape\_type ew\_u;        \(\backslash\)}
+\DoxyCodeLine{        ew\_u.value = (d);                   \(\backslash\)}
+\DoxyCodeLine{        (ix0) = ew\_u.parts.msw;             \(\backslash\)}
+\DoxyCodeLine{        (ix1) = ew\_u.parts.lsw;             \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{scalar__ulp_8inl_a28d9056369280955e923f99180ccb23c}\label{scalar__ulp_8inl_a28d9056369280955e923f99180ccb23c}} 
+\index{scalar\_ulp.inl@{scalar\_ulp.inl}!GLM\_GET\_FLOAT\_WORD@{GLM\_GET\_FLOAT\_WORD}}
+\index{GLM\_GET\_FLOAT\_WORD@{GLM\_GET\_FLOAT\_WORD}!scalar\_ulp.inl@{scalar\_ulp.inl}}
+\doxysubsubsection{\texorpdfstring{GLM\_GET\_FLOAT\_WORD}{GLM\_GET\_FLOAT\_WORD}}
+{\footnotesize\ttfamily \#define GLM\+\_\+\+GET\+\_\+\+FLOAT\+\_\+\+WORD(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{d }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{                                    \(\backslash\)}
+\DoxyCodeLine{        ieee\_float\_shape\_type gf\_u;         \(\backslash\)}
+\DoxyCodeLine{        gf\_u.value = (d);                   \(\backslash\)}
+\DoxyCodeLine{        (i) = gf\_u.word;                    \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{scalar__ulp_8inl_ac4ec14cb5c94f0ca1d594457ee17636f}\label{scalar__ulp_8inl_ac4ec14cb5c94f0ca1d594457ee17636f}} 
+\index{scalar\_ulp.inl@{scalar\_ulp.inl}!GLM\_INSERT\_WORDS@{GLM\_INSERT\_WORDS}}
+\index{GLM\_INSERT\_WORDS@{GLM\_INSERT\_WORDS}!scalar\_ulp.inl@{scalar\_ulp.inl}}
+\doxysubsubsection{\texorpdfstring{GLM\_INSERT\_WORDS}{GLM\_INSERT\_WORDS}}
+{\footnotesize\ttfamily \#define GLM\+\_\+\+INSERT\+\_\+\+WORDS(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{ix0,  }\item[{}]{ix1 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{                                    \(\backslash\)}
+\DoxyCodeLine{        ieee\_double\_shape\_type iw\_u;        \(\backslash\)}
+\DoxyCodeLine{        iw\_u.parts.msw = (ix0);             \(\backslash\)}
+\DoxyCodeLine{        iw\_u.parts.lsw = (ix1);             \(\backslash\)}
+\DoxyCodeLine{        (d) = iw\_u.value;                   \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{scalar__ulp_8inl_ab01ab8df0632f4a5f05e00f570e6b873}\label{scalar__ulp_8inl_ab01ab8df0632f4a5f05e00f570e6b873}} 
+\index{scalar\_ulp.inl@{scalar\_ulp.inl}!GLM\_SET\_FLOAT\_WORD@{GLM\_SET\_FLOAT\_WORD}}
+\index{GLM\_SET\_FLOAT\_WORD@{GLM\_SET\_FLOAT\_WORD}!scalar\_ulp.inl@{scalar\_ulp.inl}}
+\doxysubsubsection{\texorpdfstring{GLM\_SET\_FLOAT\_WORD}{GLM\_SET\_FLOAT\_WORD}}
+{\footnotesize\ttfamily \#define GLM\+\_\+\+SET\+\_\+\+FLOAT\+\_\+\+WORD(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{i }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{                                    \(\backslash\)}
+\DoxyCodeLine{        ieee\_float\_shape\_type sf\_u;         \(\backslash\)}
+\DoxyCodeLine{        sf\_u.word = (i);                    \(\backslash\)}
+\DoxyCodeLine{        (d) = sf\_u.value;                   \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}

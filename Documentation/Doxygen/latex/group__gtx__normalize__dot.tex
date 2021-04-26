@@ -1,0 +1,41 @@
+\hypertarget{group__gtx__normalize__dot}{}\doxysection{GLM\+\_\+\+GTX\+\_\+normalize\+\_\+dot}
+\label{group__gtx__normalize__dot}\index{GLM\_GTX\_normalize\_dot@{GLM\_GTX\_normalize\_dot}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$length\+\_\+t L, typename T , qualifier Q$>$ }\\\mbox{\hyperlink{setup_8hpp_ab2d052de21a70539923e9bcbf6e83a51}{GLM\+\_\+\+FUNC\+\_\+\+DECL}} T \mbox{\hyperlink{group__gtx__normalize__dot_gacb140a2b903115d318c8b0a2fb5a5daa}{glm\+::normalize\+Dot}} (\mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&x, \mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&y)
+\item 
+{\footnotesize template$<$length\+\_\+t L, typename T , qualifier Q$>$ }\\\mbox{\hyperlink{setup_8hpp_ab2d052de21a70539923e9bcbf6e83a51}{GLM\+\_\+\+FUNC\+\_\+\+DECL}} T \mbox{\hyperlink{group__gtx__normalize__dot_ga2746fb9b5bd22b06b2f7c8babba5de9e}{glm\+::fast\+Normalize\+Dot}} (\mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&x, \mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&y)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Include $<$glm/gtx/normalized\+\_\+dot.\+hpp$>$ to use the features of this extension.
+
+Dot product of vectors that need to be normalize with a single square root. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__gtx__normalize__dot_ga2746fb9b5bd22b06b2f7c8babba5de9e}\label{group__gtx__normalize__dot_ga2746fb9b5bd22b06b2f7c8babba5de9e}} 
+\index{GLM\_GTX\_normalize\_dot@{GLM\_GTX\_normalize\_dot}!fastNormalizeDot@{fastNormalizeDot}}
+\index{fastNormalizeDot@{fastNormalizeDot}!GLM\_GTX\_normalize\_dot@{GLM\_GTX\_normalize\_dot}}
+\doxysubsubsection{\texorpdfstring{fastNormalizeDot()}{fastNormalizeDot()}}
+{\footnotesize\ttfamily template$<$length\+\_\+t L, typename T , qualifier Q$>$ \\
+\mbox{\hyperlink{setup_8hpp_ab2d052de21a70539923e9bcbf6e83a51}{GLM\+\_\+\+FUNC\+\_\+\+DECL}} T glm\+::fast\+Normalize\+Dot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&}]{x,  }\item[{\mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&}]{y }\end{DoxyParamCaption})}
+
+Normalize parameters and returns the dot product of x and y. Faster that dot(fast\+Normalize(x), fast\+Normalize(y)).
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__gtx__normalize__dot}{GLM\+\_\+\+GTX\+\_\+normalize\+\_\+dot}} extension. 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__gtx__normalize__dot_gacb140a2b903115d318c8b0a2fb5a5daa}\label{group__gtx__normalize__dot_gacb140a2b903115d318c8b0a2fb5a5daa}} 
+\index{GLM\_GTX\_normalize\_dot@{GLM\_GTX\_normalize\_dot}!normalizeDot@{normalizeDot}}
+\index{normalizeDot@{normalizeDot}!GLM\_GTX\_normalize\_dot@{GLM\_GTX\_normalize\_dot}}
+\doxysubsubsection{\texorpdfstring{normalizeDot()}{normalizeDot()}}
+{\footnotesize\ttfamily template$<$length\+\_\+t L, typename T , qualifier Q$>$ \\
+\mbox{\hyperlink{setup_8hpp_ab2d052de21a70539923e9bcbf6e83a51}{GLM\+\_\+\+FUNC\+\_\+\+DECL}} T glm\+::normalize\+Dot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&}]{x,  }\item[{\mbox{\hyperlink{structglm_1_1vec}{vec}}$<$ L, T, Q $>$ const \&}]{y }\end{DoxyParamCaption})}
+
+Normalize parameters and returns the dot product of x and y. It\textquotesingle{}s faster that dot(normalize(x), normalize(y)).
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__gtx__normalize__dot}{GLM\+\_\+\+GTX\+\_\+normalize\+\_\+dot}} extension. 
+\end{DoxySeeAlso}
