@@ -44,6 +44,10 @@ float vertices[] = {
 	-1,1,0,0,1
 };
 
+/// <summary>
+/// Load a shader
+/// </summary>
+/// <param name="filpath">The filepath of the shader</param>
 string GetShaderSource(string filepath) {
 	ifstream t(filepath);
 	stringstream buffer;
@@ -53,6 +57,10 @@ string GetShaderSource(string filepath) {
 	return s;
 }
 
+/// <summary>
+/// Loading a cubemap from system into OpenGL textures
+/// </summary>
+/// <param name="faces">a vector containing 6 filepaths</param>
 unsigned int loadCubemap(vector<std::string> faces)
 {
 	unsigned int textureID;
@@ -85,6 +93,9 @@ unsigned int loadCubemap(vector<std::string> faces)
 	return textureID;
 }
 
+/// <summary>
+/// The main function where all important functions are executed
+/// </summary>
 int main() {
 
 	GLFWwindow* window;
