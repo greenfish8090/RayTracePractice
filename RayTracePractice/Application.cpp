@@ -3,6 +3,8 @@
 #include "stb_image.h"
 #include "external/glm/glm.hpp"
 #include "external/glm/gtc/matrix_transform.hpp"
+#include "external/glm/gtc/type_ptr.hpp"
+#include "external/glm/gtx/string_cast.hpp"
 
 #include<iostream>
 #include<fstream>
@@ -16,6 +18,11 @@ using namespace std;
 int width = 900;
 int height = 900;
 int scene = 1;
+float iter;
+
+glm::mat4 rot_matrix = glm::mat4(1.0f);
+
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 const char* vertexS = "#version 430\n"
 "layout(location = 0) in vec3 Position;\n"
@@ -108,6 +115,7 @@ int main() {
 	}
 
 	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glfwSetKeyCallback(window, KeyCallback);
 
 	cout << glGetString(GL_VERSION) << endl;
 
@@ -253,7 +261,8 @@ int main() {
 		0.0f, 0.0f, 10.0f, 1.0f
 	};
 	float seed = 0.5f;
-	float iter = 0.0f;
+	iter = 0.0f;
+
 	//Loop
 	while (!glfwWindowShouldClose(window)) {
 
@@ -266,6 +275,11 @@ int main() {
 		seed += 3.1415f;
 		int appertureLoc = glGetUniformLocation(rayProgram, "aperture");
 		glUniform4fv(appertureLoc, 1, aperture);
+
+		cout << glm::to_string(rot_matrix) << endl;
+
+		int rotateLoc = glGetUniformLocation(rayProgram, "rotate_matrix");
+		glUniformMatrix4fv(rotateLoc, 1, GL_FALSE, glm::value_ptr(rot_matrix));
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 		glDispatchCompute((GLuint)tw, (GLuint)th, 1);
 
@@ -295,4 +309,29 @@ int main() {
 	}
 
 	return 0;
+}
+
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+
+	float degree = 1.0f;
+
+	if (key == GLFW_KEY_W && action == GLFW_REPEAT) {
+		rot_matrix = glm::rotate(rot_matrix, glm::radians(degree), glm::vec3(1.0, 0.0, 0.0));
+		iter = 0.0f;
+	}
+
+	if (key == GLFW_KEY_S && action == GLFW_REPEAT) {
+		rot_matrix = glm::rotate(rot_matrix, glm::radians(-1 * degree), glm::vec3(1.0, 0.0, 0.0));
+		iter = 0.0f;
+	}
+
+	if (key == GLFW_KEY_A && action == GLFW_REPEAT) {
+		rot_matrix = glm::rotate(rot_matrix, glm::radians(degree), glm::vec3(0.0, 1.0, 0.0));
+		iter = 0.0f;
+	}
+
+	if (key == GLFW_KEY_D && action == GLFW_REPEAT) {
+		rot_matrix = glm::rotate(rot_matrix, glm::radians(-1 * degree), glm::vec3(0.0, 1.0, 0.0));
+		iter = 0.0f;
+	}
 }
