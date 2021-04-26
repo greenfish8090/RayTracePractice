@@ -248,13 +248,13 @@ vec4 rayTrace(int bounces, vec3 origin, vec3 direction)
 
 	while(bounces>=0)
 	{
-		current_intersect = intersectSphere(current_ray_origin, current_ray_direction, vec3(-5.0, 4.0, -30.0), 5.0, vec4(1.0, 1.0, 0.8, 1.0), 0.0);
+		current_intersect = intersectSphere(current_ray_origin, current_ray_direction, vec3(-5.0, 4.0, -30.0), 5.0, vec4(1.0, 1.0, 1.0, 1.0), 0.0);
 		nearest_intersect = current_intersect;
 		
 //		if(bounces==0)
 //				return vec4(nearest_intersect.dist/300.0f, 0.0, 0.0, 1.0);
 
-		current_intersect = intersectSphere(current_ray_origin, current_ray_direction, vec3(5.0, -7.0, -20.0), 7.0, vec4(1.0, 0.8, 1.0, 1.0), 0.0);
+		current_intersect = intersectSphere(current_ray_origin, current_ray_direction, vec3(5.0, -7.0, -20.0), 7.0, vec4(1.0, 1.0, 1.0, 1.0), 0.0);
 		if(current_intersect.dist > 0.001f && (nearest_intersect.dist > current_intersect.dist || nearest_intersect.dist <= 0.001f))
 		{
 			nearest_intersect = current_intersect;
@@ -296,7 +296,7 @@ void main(){
 	ray_o = vec4(0.0, 0.0, 10.0, 1.0);
 	ray_d = normalize(viewing_plane - ray_o);
 
-	color = rayTrace(5, vec3(ray_o.x, ray_o.y, ray_o.z), vec3(ray_d.x, ray_d.y, ray_d.z));
+	color = rayTrace(3, vec3(ray_o.x, ray_o.y, ray_o.z), vec3(ray_d.x, ray_d.y, ray_d.z));
 	pixel = color;
 	
 	imageStore(img_output,pixel_coords,pixel);

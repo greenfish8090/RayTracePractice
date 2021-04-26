@@ -273,7 +273,7 @@ int main() {
 	};
 	float seed = 0.5f;
 	iter = 0.0f;
-
+	rot_matrix = glm::rotate(rot_matrix, glm::radians(5.0f), glm::vec3(0.0, 1.0, 0.0));
 	//Loop
 	while (!glfwWindowShouldClose(window)) {
 
@@ -286,8 +286,6 @@ int main() {
 		seed += 3.1415f;
 		int appertureLoc = glGetUniformLocation(rayProgram, "aperture");
 		glUniform4fv(appertureLoc, 1, aperture);
-
-		cout << glm::to_string(rot_matrix) << endl;
 
 		int rotateLoc = glGetUniformLocation(rayProgram, "rotate_matrix");
 		glUniformMatrix4fv(rotateLoc, 1, GL_FALSE, glm::value_ptr(rot_matrix));

@@ -290,7 +290,7 @@ void intersectRoom(Ray ray, inout RayHit bestHit)
 		bestHit.normal = normal;
 		bestHit.albedo = vec3(texture(skybox, normalize(nearest)).xyz);
 		bestHit.specular = vec3(0.0);
-		bestHit.emission = vec3(0.3);
+		bestHit.emission = vec3(0.0);
 		bestHit.smoothness = 0.0;
 		bestHit.skybox = true;
 	}
@@ -445,7 +445,7 @@ void intersectGroundPlane(Ray ray, inout RayHit bestHit)
 		bestHit.albedo = vec3(1.0);
 		bestHit.specular = vec3(1.0);
 		bestHit.emission = vec3(0.0, 0.0, 0.0);
-		bestHit.smoothness = 1.1;
+		bestHit.smoothness = 0.6;
 		bestHit.skybox = false;
 	}
 }
@@ -488,11 +488,13 @@ RayHit Trace(Ray ray)
 	intersectRoom(ray, bestHit);
 	intersectGroundPlane(ray, bestHit);
 
+	intersectSphere(ray, bestHit, Sphere(vec3(-17.0f, -9.0, -62.0f), 7.0, vec3(0.0), vec3(1.0, 0.78f, 0.34f), 1.0, vec3(1.0)));
+	intersectSphere(ray, bestHit, Sphere(vec3(-15.0f, -12.6, -30.0f), 4.0, vec3(0.0), vec3(1.0, 1.0f, 1.0f), 1.2, vec3(0.0)));
+	intersectSphere(ray, bestHit, Sphere(vec3(-5.0f, -13.0, -45.0f), 3.0, vec3(1.0, 1.0, 1.0), vec3(1.0), 0.8, vec3(0.0, 10.0, 10.0)));
+	intersectSphere(ray, bestHit, Sphere(vec3(-3.0f, -9.6, -75.0f), 7.0, vec3(0.0, 0.0, 0.0), vec3(1.0, 0.35, 0.45), 0.1, vec3(0.0)));
+	intersectSphere(ray, bestHit, Sphere(vec3(1.0f, -14.6, -62.0f), 2.0, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0), 0.0, vec3(0.0)));
 	intersectSphere(ray, bestHit, Sphere(vec3(8.0f, -11.0, -50.0f), 5.0, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 0.0), 0.8, vec3(1.0)));
-	intersectSphere(ray, bestHit, Sphere(vec3(-5.0f, -13.0, -50.0f), 3.0, vec3(1.0, 1.0, 1.0), vec3(1.0), 0.8, vec3(10.0)));
-	intersectSphere(ray, bestHit, Sphere(vec3(1.0f, -15.0, -62.0f), 2.0, vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0), 0.0, vec3(0.0)));
-	intersectSphere(ray, bestHit, Sphere(vec3(-17.0f, -10.0, -62.0f), 7.0, vec3(0.0), vec3(1.0, 0.78f, 0.34f), 1.0, vec3(1.0)));
-//	intersectSphere(ray, bestHit, Sphere(vec3(0.0f, 1.0, -80.0f), 7.0, vec3(0.0), vec3(1.0, 1.0f, 1.0f), 1.2, vec3(0.0)));
+	
 //	for(int i=-2; i<3; i++)
 //	{
 //		for(int j=0; j<5; j++)
@@ -501,23 +503,23 @@ RayHit Trace(Ray ray)
 //		}
 //	}
 
-	vec3 v0 = vec3(10, -17, -60);
-	vec3 v1 = vec3(20, -17, -55);
-	vec3 v2 = vec3(10, 0, -65);
-	float t, u, v;
-	if (intersectTriangle_MT97(ray, v0, v1, v2, t, u, v))
-	{
-		if (t > 0 && t < bestHit.dist)
-		{
-			bestHit.dist = t;
-			bestHit.position = ray.origin + t * ray.direction;
-			bestHit.normal = normalize(cross(v1 - v0, v2 - v0));
-			bestHit.albedo = vec3(0.0f);
-			bestHit.specular = 0.65f * vec3(1, 0.4f, 0.2f);
-			bestHit.smoothness = 0.9f;
-			bestHit.emission = vec3(0.0f);
-		}
-	}
+//	vec3 v0 = vec3(10, -17, -60);
+//	vec3 v1 = vec3(20, -17, -55);
+//	vec3 v2 = vec3(30, -3, -65);
+//	float t, u, v;
+//	if (intersectTriangle_MT97(ray, v0, v1, v2, t, u, v))
+//	{
+//		if (t > 0 && t < bestHit.dist)
+//		{
+//			bestHit.dist = t;
+//			bestHit.position = ray.origin + t * ray.direction;
+//			bestHit.normal = normalize(cross(v1 - v0, v2 - v0));
+//			bestHit.albedo = vec3(0.0f);
+//			bestHit.specular = 0.65f * vec3(1, 0.4f, 0.2f);
+//			bestHit.smoothness = 0.9f;
+//			bestHit.emission = vec3(0.0f);
+//		}
+//	}
  
     return bestHit;
 }
@@ -546,16 +548,16 @@ vec3 Shade(inout Ray ray, RayHit hit)
 		float roulette = rand();
 		if (roulette < specChance)
 		{
-//			float alpha = 3000.0f;
+			//Diffuse reflection
 			ray.origin = hit.position + hit.normal * 0.001f;
 			float alpha = SmoothnessToPhongAlpha(hit.smoothness);
 			ray.direction = SampleHemisphere(reflect(ray.direction, hit.normal), alpha);
 			float f = (alpha+2)/(alpha+1);
 			ray.energy *= (1.0f / specChance) * hit.specular * sdot(hit.normal, ray.direction, f);
-//			return vec3(1.0, 0.0, 0.0);
 		}
 		else
 		{
+			//Specular reflection
 			ray.origin = hit.position + hit.normal * 0.001f;
 			ray.direction = SampleHemisphere(hit.normal, 1.0f);
 			ray.energy *= (1.0f / diffChance) * hit.albedo;
@@ -616,7 +618,7 @@ void main(){
         RayHit hit = Trace(ray);
         result += ray.energy * Shade(ray,hit);
     
-        if(ray.energy.x==0.0 || ray.energy.y==0.0 ||ray.energy.y==0.0) break;
+        if(ray.energy.x==0.0 && ray.energy.y==0.0 && ray.energy.y==0.0) break;
     }
 
 	pixel = vec4(result, 1.0);
