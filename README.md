@@ -1,5 +1,8 @@
 # Ray Tracing
-I should really change the name of this repo.
+I should really change the name of this repo. This was a group project involving:
+- Me
+- [Subienay Ganesh](https://github.com/SubsTheTechnomancer)
+
 
 # Introduction
 Raytracing is an advanced and computing-intensive method of generating graphics.
